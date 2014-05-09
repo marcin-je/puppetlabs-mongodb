@@ -12,11 +12,11 @@ class mongodb::params inherits mongodb::globals {
         $user        = pick($user, 'mongod')
         $group       = pick($group, 'mongod')
         if $::mongodb::globals::version {
-          $server_package_name = "mongodb-org-server-${::mongodb::globals::version}"
-          $client_package_name = "mongodb-org-${::mongodb::globals::version}"
+          $server_package_name = "mongo-10gen-server-${::mongodb::globals::version} --exclude mongodb-org,mongodb-org-server"
+          $client_package_name = "mongo-10gen-${::mongodb::globals::version} --exclude mongodb-org,mongodb-org-server"
         } else {
-          $server_package_name = 'mongodb-org-server'
-          $client_package_name = 'mongodb-org'
+          $server_package_name = 'mongo-10gen-server --exclude mongodb-org,mongodb-org-server'
+          $client_package_name = 'mongo-10gen --exclude mongodb-org,mongodb-org-server'
         }
         $service_name = pick($service_name, 'mongod')
         $config      = '/etc/mongod.conf'
